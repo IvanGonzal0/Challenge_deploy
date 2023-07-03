@@ -12,3 +12,6 @@ Este es un proyecto como parte del challenge integrador para el curso de NodeJS 
   - Grid
   - Bootstrap
 - JavaScript
+- Node JS
+- Express JS
+- MySQL

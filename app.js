@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-
+require("dotenv").config();
 /* Import de la rutas */
 
 const mainRoutes = require("./src/router/mainRoutes");
@@ -8,7 +8,7 @@ const shopRoutes = require("./src/router/shopRoutes");
 const adminRoutes = require("./src/router/adminRoutes");
 const { notFoundPage } = require("./src/utils/errorHandlers");
 
-const PORT = 4000;
+const PORT = process.env.PORT;
 
 /* Define carpeta de archivos estáticos */
 
@@ -30,5 +30,3 @@ app.use(notFoundPage);
 app.listen(PORT, () =>
   console.log(`🚀 Servidor corriendo en: http://localhost:${PORT}`)
 );
-
-
