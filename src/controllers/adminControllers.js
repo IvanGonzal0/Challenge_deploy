@@ -1,9 +1,19 @@
+const { getAllItems, getItem } = require("../services/itemServices");
+
 module.exports = {
-  adminView: (req, res) => res.send("Admin View Route"),
+  adminView: async (req, res) => {
+    const items = await getAllItems();
+    res.send(items);
+  },
   createView: (req, res) => res.send("Create View Route"),
   createItem: (req, res) =>
     res.send("Create Route that receive a new item data to add in Database"),
-  editView: (req, res) => res.send("Edit View Route"),
+
+  editView: async (req, res) => {
+    const item = await getItem(req.params.id);
+    res.send(item);
+  },
+
   editItem: (req, res) =>
     res.send("Edit Route that receive data to modify an item in Database"),
   deleteItem: (req, res) =>
