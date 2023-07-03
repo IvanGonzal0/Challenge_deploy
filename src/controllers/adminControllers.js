@@ -1,25 +1,50 @@
-const { getAllItems, getItem } = require("../services/itemServices");
+const ItemsService = require("../services/itemServices");
 
 module.exports = {
   adminView: async (req, res) => {
-    const items = await getAllItems();
-    res.send(items);
+    const items = await ItemsService.getAllItems();
+    res.send({
+      view: "Admin view",
+      items,
+    });
   },
+
   createView: (req, res) => res.send("Create View Route"),
-  createItem: (req, res) =>
-    res.send("Create Route that receive a new item data to add in Database"),
+
+  createItem: async (req, res) => {
+    const item = req.body;
+    const result = await ItemsService.create([Object.values(item)]);
+    res.send(result);
+  },
+
+  bulkCreate: async (req, res) => {
+    const items = req.body;
+    const result = await ItemsService.create(
+      items.map((el) => Object.values(el))
+    );
+    res.send(result);
+  },
 
   editView: async (req, res) => {
-    const item = await getItem(req.params.id);
-    res.send(item);
+    const id = req.params.id;
+    const item = await ItemsService.getItem(id);
+    res.send({
+      view: "Edit view",
+      item,
+    });
+  },
+  editItem: async (req, res) => {
+    const id = req.params.id;
+    const item = req.body;
+    const result = await ItemsService.edit(item, id);
+    res.send(result);
+  },
+  deleteItem: async (req, res) => {
+    const id = req.params.id;
+    const result = await ItemsService.delete(id);
+    res.send(result);
   },
 
-  editItem: (req, res) =>
-    res.send("Edit Route that receive data to modify an item in Database"),
-  deleteItem: (req, res) =>
-    res.send(
-      "Delete Route that receive the ID to the item to delete from database"
-    ),
   loginView: (req, res) => res.send("Login View Route"),
   loginUser: (req, res) =>
     res.send("Login Route that receive the data when user click login button"),
