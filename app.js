@@ -14,6 +14,11 @@ const PORT = process.env.PORT;
 
 app.use(express.static("public"));
 
+/* Configuración del Template Engine - EJS */
+
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
+
 /* Parsea los datos recibidos por POST */
 
 app.use(express.urlencoded());
