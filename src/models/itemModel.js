@@ -27,7 +27,7 @@ const getAll = async () => {
 const getOne = async (params) => {
   try {
     const [rows] = await conn.query(
-      "SELECT product.*, category.category_name, licence.licence_name FROM (product LEFT JOIN category ON product.category_id = category.category_id) LEFT JOIN licence ON product.category_id = licence.licence_id WHERE ?;",
+      "SELECT product.*, category.category_name, licence.licence_name FROM (product LEFT JOIN category ON product.category_id = category.category_id) LEFT JOIN licence ON product.licence_id = licence.licence_id WHERE ?;",
       params
     );
     const response = {
@@ -75,17 +75,10 @@ const create = async (params) => {
 
 const edit = async (params, id) => {
   try {
-    console.log(params);
-    console.log(id);
     const [rows] = await conn.query("UPDATE product SET ? WHERE ?;", [
       params,
       id,
     ]);
-    console.log(rows);
-    const response = {
-      isError: false,
-      message: `El item fue modificado exitosamente.`,
-    };
 
     return response;
   } catch (e) {
@@ -128,5 +121,5 @@ module.exports = {
   getOne,
   create,
   edit,
-  delete:deleteOne,
+  delete: deleteOne,
 };
