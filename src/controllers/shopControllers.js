@@ -14,12 +14,33 @@ module.exports = {
   itemView: async (req, res) => {
     const id = req.params.id;
     const item = await ItemsService.getItem(id);
-    const {data} = item;
+    const { data } = item;
+
     res.render("../views/shop/item", {
       view: {
         title: "Item | Funkoshop",
       },
       item: data[0],
+    });
+  },
+
+  detailView: async (req, res) => {
+    const id = req.params.id;
+    const item = await ItemsService.getItem(id);
+    const { data } = item;
+
+    if (!data[0]) {
+      res
+        .status(404)
+        .send("El producto con el ID seleccionado noe xiste o fue eliminado");
+    }
+
+    res.render("./shop/detail", {
+      view: {
+        title: "Item | Funkoshop",
+      },
+      item: data[0],
+
     });
   },
 

@@ -75,17 +75,10 @@ const create = async (params) => {
 
 const edit = async (params, id) => {
   try {
-    console.log(params);
-    console.log(id);
     const [rows] = await conn.query("UPDATE product SET ? WHERE ?;", [
       params,
       id,
     ]);
-    console.log(rows);
-    const response = {
-      isError: false,
-      message: `El item fue modificado exitosamente.`,
-    };
 
     return response;
   } catch (e) {
@@ -128,5 +121,5 @@ module.exports = {
   getOne,
   create,
   edit,
-  delete:deleteOne,
+  delete: deleteOne,
 };

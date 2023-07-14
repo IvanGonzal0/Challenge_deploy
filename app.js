@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const methodOverride = require("method-override");
 require("dotenv").config();
 /* Import de la rutas */
 
@@ -23,6 +24,9 @@ app.set("views", "./src/views");
 
 app.use(express.urlencoded());
 app.use(express.json());
+
+/* Override para habilitar métodos PUT y DELETE */
+app.use(methodOverride("_method"));
 
 /* Rutas de la aplicación */
 
