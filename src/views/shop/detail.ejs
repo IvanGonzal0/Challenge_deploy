@@ -1,5 +1,11 @@
 <%- include('../partials/header') %>
 <main class="container">
+
+    <% if (item == false) { %>
+        <section class="item">
+            El producto no existe o fue eliminado
+        </section>
+    <% } else { %>
     <section class="item">
         <picture class="item__img card-item__cover">
             <img class="card-item__img--front" src="../../img<%= item.image_front %>" alt="<%= item.product_description %>">
@@ -19,6 +25,8 @@
             <p class="item__promo"><a href="">Ver métodos de pago</a> - 3 CUOTAS SIN INTERÉS</p>
         </article>
     </section>
+    <% } %>
+
     <section class="glide slider container">
         <h2 class="slider__title">Productos Relacionados</h2>
         <div class="glide__track" data-glide-el="track">

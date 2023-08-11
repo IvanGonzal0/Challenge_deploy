@@ -26,21 +26,21 @@ module.exports = {
 
   detailView: async (req, res) => {
     const id = req.params.id;
-    const item = await ItemsService.getItem(id);
-    const { data } = item;
+    const result = await ItemsService.getItem(id);
+    const { data } = result;
+    const [item] = data;
 
-    if (!data[0]) {
-      res
-        .status(404)
-        .send("El producto con el ID seleccionado noe xiste o fue eliminado");
-    }
+    // if (!data[0]) {
+    //   return res
+    //     .status(404)
+    //     .send("El producto con el ID seleccionado noe xiste o fue eliminado");
+    // }
 
-    res.render("./shop/detail", {
+    return res.render("./shop/detail", {
       view: {
         title: "Item | Funkoshop",
       },
-      item: data[0],
-
+      item: item != undefined ? item : false
     });
   },
 
