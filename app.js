@@ -1,12 +1,14 @@
 const express = require("express");
 const app = express();
 const methodOverride = require("method-override");
+const { initSession } = require("./src/utils/sessions");
 require("dotenv").config();
 /* Import de la rutas */
 
 const mainRoutes = require("./src/router/mainRoutes");
 const shopRoutes = require("./src/router/shopRoutes");
 const adminRoutes = require("./src/router/adminRoutes");
+const authRoutes = require("./src/router/authRoutes");
 const { notFoundPage } = require("./src/utils/errorHandlers");
 
 const PORT = process.env.PORT;
@@ -14,6 +16,9 @@ const PORT = process.env.PORT;
 /* Define carpeta de archivos estáticos */
 
 app.use(express.static("public"));
+
+/* USER SESSION */
+app.use(initSession());
 
 /* Configuración del Template Engine - EJS */
 
@@ -33,6 +38,7 @@ app.use(methodOverride("_method"));
 app.use("/", mainRoutes);
 app.use("/shop", shopRoutes);
 app.use("/admin", adminRoutes);
+app.use("/auth", authRoutes);
 
 app.use(notFoundPage);
 

@@ -14,7 +14,6 @@ module.exports = {
   },
 
   createView: async (req, res) => {
-
     const { data: categories } = await CategoryService.getAllItemsCategories();
     const { data: licences } = await LicenceService.getAllItemsLicences();
     res.render("./admin/create", {
@@ -22,14 +21,14 @@ module.exports = {
         title: "Create Product | Admin Funkoshop",
       },
       categories,
-      licences
+      licences,
     });
   },
 
   createItem: async (req, res) => {
     const item = req.body;
     const files = req.files;
-    
+
     await ItemsService.create(item, files);
     res.redirect("/admin");
   },
@@ -78,8 +77,17 @@ module.exports = {
       },
     }),
 
-  loginUser: (req, res) =>
-    res.send("Login Route that receive the data when user click login button"),
+  loginUser: async (req, res) => {
+    const licences = await LicenceService.getAllItemsLicences();
+    const categories = await CategoryService.getAllItemsCategories();
+
+    res.render("home", {
+      view: {
+        title: "Home | Funkoshop",
+      },
+      collections: licences.data,
+    });
+  },
   registerView: (req, res) =>
     res.render("./auth/register", {
       view: {

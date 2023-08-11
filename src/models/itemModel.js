@@ -1,4 +1,3 @@
-// En los modelos voy a tener las funcionalidades y vamos a usar la conexión con la BD
 const { conn } = require("../config/conn");
 
 const getAll = async () => {
@@ -79,10 +78,14 @@ const edit = async (params, id) => {
       params,
       id,
     ]);
+    const response = {
+      isError: false,
+      message: `El item fue modificado exitosamente.`,
+      status: rows,
+    };
 
     return response;
   } catch (e) {
-    console.log(e);
     const error = {
       isError: true,
       message: `No pudimos modificar el item seleccionado, error: ${e}`,
