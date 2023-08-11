@@ -15,3 +15,4 @@ Este es un proyecto como parte del challenge integrador para el curso de NodeJS 
 - Node JS
 - Express JS
 - MySQL
+- EJS
