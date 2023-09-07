@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require('path')
 const methodOverride = require("method-override");
 const { initSession } = require("./src/utils/sessions");
 require("dotenv").config();
@@ -15,7 +16,7 @@ const PORT = process.env.PORT;
 
 /* Define carpeta de archivos estáticos */
 
-app.use(express.static("public"));
+app.use(express.static(path.resolve(__dirname, 'public')));
 
 /* USER SESSION */
 app.use(initSession());
@@ -23,7 +24,7 @@ app.use(initSession());
 /* Configuración del Template Engine - EJS */
 
 app.set("view engine", "ejs");
-app.set("views", "./src/views");
+app.set("views", path.resolve(__dirname, "./src/views"));
 
 /* Parsea los datos recibidos por POST */
 
