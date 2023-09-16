@@ -1,12 +1,16 @@
 const LicenceService = require("../services/licenceService");
+const ItemsService = require('../services/itemServices');
 
 module.exports = {
   homeView: async (req, res) => {
     const licences = await LicenceService.getAllItemsLicences();
+    const items = await ItemsService.getAllItems();
+    const {data} = items;
     res.render("home", {
       view: {
         title: "Home | Funkoshop",
       },
+      items:data,
       collections: licences.data,
     });
   },
