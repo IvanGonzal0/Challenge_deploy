@@ -14,7 +14,12 @@ module.exports = {
       collections: licences.data,
     });
   },
-  contactView: (req, res) => res.send("Contact View Route"),
+  contactView: async (req,res) => {
+    res.render('./contact/contact', {
+      view: {
+        title: "Contacto | Funkoshop"
+      },});
+  },
   aboutView: (req, res) => res.send("About View Route"),
   faqsView: (req, res) => res.send("FAQs View Route"),
 };
